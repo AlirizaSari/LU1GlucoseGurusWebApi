@@ -1,0 +1,6 @@
+@GlucoseGurusWebApi.WebApi_HostAddress = http://localhost:5174
+
+GET {{GlucoseGurusWebApi.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
