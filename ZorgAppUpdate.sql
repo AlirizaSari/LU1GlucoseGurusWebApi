@@ -5,7 +5,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Arts](
-	[ID] [int] NOT NULL,
+	[ID] [uniqueidentifier] NOT NULL,
 	[Naam] [nvarchar](50) NOT NULL,
 	[Specialisatie] [nvarchar](50) NOT NULL,
  CONSTRAINT [PK_Arts] PRIMARY KEY CLUSTERED 
@@ -25,8 +25,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[OuderVoogd](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[UserId] [nvarchar](255),
+	[ID] [uniqueidentifier] NOT NULL,
+	[UserID] [nvarchar](450),
 	[Voornaam] [nvarchar](50) NOT NULL,
 	[Achternaam] [nvarchar](50) NOT NULL,
  CONSTRAINT [PK_OuderVoogd] PRIMARY KEY CLUSTERED 
@@ -41,12 +41,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Patient](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[ID] [uniqueidentifier] NOT NULL,
 	[Voornaam] [nvarchar](50) NOT NULL,
 	[Achternaam] [nvarchar](50) NOT NULL,
-	[OuderVoogd_ID] [int] NOT NULL,
-	[TrajectID] [int] NOT NULL,
-	[ArtsID] [int] NULL,
+	[Avatar] [int],
+	[OuderVoogdID] [uniqueidentifier] NOT NULL,
+	[TrajectID] [uniqueidentifier] NOT NULL,
+	[ArtsID] [uniqueidentifier] NULL,
  CONSTRAINT [PK_Patient] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -59,7 +60,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Traject](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[ID] [uniqueidentifier] NOT NULL,
 	[Naam] [nvarchar](50) NOT NULL,
  CONSTRAINT [PK_Traject] PRIMARY KEY CLUSTERED 
 (
@@ -77,8 +78,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Traject_ZorgMoment](
-	[TrajectID] [int] NOT NULL,
-	[ZorgMomentID] [int] NOT NULL,
+	[TrajectID] [uniqueidentifier] NOT NULL,
+	[ZorgMomentID] [uniqueidentifier] NOT NULL,
+	[Naam] [nvarchar](50) NOT NULL,
 	[Volgorde] [int] NOT NULL,
  CONSTRAINT [PK_Traject_ZorgMoment] PRIMARY KEY CLUSTERED 
 (
@@ -93,7 +95,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ZorgMoment](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[ID] [uniqueidentifier] NOT NULL,
 	[Naam] [nvarchar](50) NOT NULL,
 	[Url] [nvarchar](256) NULL,
 	[Plaatje] [varbinary](max) NULL,
@@ -108,12 +110,29 @@ CREATE TABLE [dbo].[ZorgMoment](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+/****** Object:  Table [dbo].[Notitie]    Script Date: 13-2-2025 17:49:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Notitie](
+	[ID] [uniqueidentifier] NOT NULL,
+	[Datum] [datetime] NOT NULL,
+	[Inhoud] [nvarchar](500) NOT NULL,
+	[OuderVoogdID] [uniqueidentifier] NULL,
+	[PatientID] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_Notitie] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_Arts] FOREIGN KEY([ArtsID])
 REFERENCES [dbo].[Arts] ([ID])
 GO
 ALTER TABLE [dbo].[Patient] CHECK CONSTRAINT [FK_Patient_Arts]
 GO
-ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_OuderVoogd] FOREIGN KEY([OuderVoogd_ID])
+ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_OuderVoogd] FOREIGN KEY([OuderVoogdID])
 REFERENCES [dbo].[OuderVoogd] ([ID])
 GO
 ALTER TABLE [dbo].[Patient] CHECK CONSTRAINT [FK_Patient_OuderVoogd]
@@ -132,4 +151,14 @@ ALTER TABLE [dbo].[Traject_ZorgMoment]  WITH CHECK ADD  CONSTRAINT [FK_Traject_Z
 REFERENCES [dbo].[ZorgMoment] ([ID])
 GO
 ALTER TABLE [dbo].[Traject_ZorgMoment] CHECK CONSTRAINT [FK_Traject_ZorgMoment_ZorgMoment]
+GO
+ALTER TABLE [dbo].[Notitie]  WITH CHECK ADD  CONSTRAINT [FK_Notitie_OuderVoogd] FOREIGN KEY([OuderVoogdID])
+REFERENCES [dbo].[OuderVoogd] ([ID])
+GO
+ALTER TABLE [dbo].[Notitie] CHECK CONSTRAINT [FK_Notitie_OuderVoogd]
+GO
+ALTER TABLE [dbo].[Notitie]  WITH CHECK ADD  CONSTRAINT [FK_Notitie_Patient] FOREIGN KEY([PatientID])
+REFERENCES [dbo].[Patient] ([ID])
+GO
+ALTER TABLE [dbo].[Notitie] CHECK CONSTRAINT [FK_Notitie_Patient]
 GO
