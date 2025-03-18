@@ -1,37 +1,37 @@
 GO
-/****** Object:  Table [dbo].[Arts]    Script Date: 13-2-2025 17:49:29 ******/
+/****** Object:  Table [dbo].[Docter]    Script Date: 13-2-2025 17:49:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Arts](
-	[ID] [uniqueidentifier] NOT NULL,
-	[Naam] [nvarchar](50) NOT NULL,
-	[Specialisatie] [nvarchar](50) NOT NULL,
- CONSTRAINT [PK_Arts] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[Docter](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[Specialization] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Docter] PRIMARY KEY CLUSTERED 
 (
-	[ID] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_Arts] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UK_Docter] UNIQUE NONCLUSTERED 
 (
-	[Naam] ASC,
-	[Specialisatie] ASC
+	[Name] ASC,
+	[Specialization] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OuderVoogd]    Script Date: 13-2-2025 17:49:29 ******/
+/****** Object:  Table [dbo].[ParentGuardian]    Script Date: 13-2-2025 17:49:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[OuderVoogd](
-	[ID] [uniqueidentifier] NOT NULL,
-	[UserID] [nvarchar](450),
-	[Voornaam] [nvarchar](50) NOT NULL,
-	[Achternaam] [nvarchar](50) NOT NULL,
- CONSTRAINT [PK_OuderVoogd] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[ParentGuardian](
+	[Id] [uniqueidentifier] NOT NULL,
+	[UserId] [nvarchar](450),
+	[FirstName] [nvarchar](50) NOT NULL,
+	[LastName] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_ParentGuardian] PRIMARY KEY CLUSTERED 
 (
-	[ID] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -41,16 +41,16 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Patient](
-	[ID] [uniqueidentifier] NOT NULL,
-	[Voornaam] [nvarchar](50) NOT NULL,
-	[Achternaam] [nvarchar](50) NOT NULL,
+	[Id] [uniqueidentifier] NOT NULL,
+	[FirstName] [nvarchar](50) NOT NULL,
+	[LastName] [nvarchar](50) NOT NULL,
 	[Avatar] [int],
-	[OuderVoogdID] [uniqueidentifier] NOT NULL,
-	[TrajectID] [uniqueidentifier] NOT NULL,
-	[ArtsID] [uniqueidentifier] NULL,
+	[ParentGuardianId] [uniqueidentifier] NOT NULL,
+	[TrajectId] [uniqueidentifier] NOT NULL,
+	[DocterId] [uniqueidentifier] NULL,
  CONSTRAINT [PK_Patient] PRIMARY KEY CLUSTERED 
 (
-	[ID] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -60,105 +60,105 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Traject](
-	[ID] [uniqueidentifier] NOT NULL,
-	[Naam] [nvarchar](50) NOT NULL,
+	[Id] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
  CONSTRAINT [PK_Traject] PRIMARY KEY CLUSTERED 
 (
-	[ID] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
  CONSTRAINT [UK_Traject] UNIQUE NONCLUSTERED 
 (
-	[Naam] ASC
+	[Name] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Traject_ZorgMoment]    Script Date: 13-2-2025 17:49:29 ******/
+/****** Object:  Table [dbo].[Traject_CareMoment]    Script Date: 13-2-2025 17:49:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Traject_ZorgMoment](
-	[TrajectID] [uniqueidentifier] NOT NULL,
-	[ZorgMomentID] [uniqueidentifier] NOT NULL,
-	[Naam] [nvarchar](50) NOT NULL,
-	[Volgorde] [int] NOT NULL,
- CONSTRAINT [PK_Traject_ZorgMoment] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[Traject_CareMoment](
+	[TrajectId] [uniqueidentifier] NOT NULL,
+	[CareMomentId] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[Step] [int] NOT NULL,
+ CONSTRAINT [PK_Traject_CareMoment] PRIMARY KEY CLUSTERED 
 (
-	[TrajectID] ASC,
-	[ZorgMomentID] ASC
+	[TrajectId] ASC,
+	[CareMomentId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ZorgMoment]    Script Date: 13-2-2025 17:49:29 ******/
+/****** Object:  Table [dbo].[CareMoment]    Script Date: 13-2-2025 17:49:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[ZorgMoment](
-	[ID] [uniqueidentifier] NOT NULL,
-	[Naam] [nvarchar](50) NOT NULL,
+CREATE TABLE [dbo].[CareMoment](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
 	[Url] [nvarchar](256) NULL,
-	[Plaatje] [varbinary](max) NULL,
-	[TijdsDuurInMin] [int] NULL,
- CONSTRAINT [PK_ZorgMoment] PRIMARY KEY CLUSTERED 
+	[Picture] [varbinary](max) NULL,
+	[TimeDurationInMin] [int] NULL,
+ CONSTRAINT [PK_CareMoment] PRIMARY KEY CLUSTERED 
 (
-	[ID] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
  CONSTRAINT [UK_ZorgMoment] UNIQUE NONCLUSTERED 
 (
-	[Naam] ASC
+	[Name] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Notitie]    Script Date: 13-2-2025 17:49:29 ******/
+/****** Object:  Table [dbo].[Note]    Script Date: 13-2-2025 17:49:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Notitie](
-	[ID] [uniqueidentifier] NOT NULL,
-	[Datum] [datetime] NOT NULL,
-	[Inhoud] [nvarchar](500) NOT NULL,
-	[OuderVoogdID] [uniqueidentifier] NULL,
-	[PatientID] [uniqueidentifier] NULL,
- CONSTRAINT [PK_Notitie] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[Note](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[Text] [nvarchar](500) NOT NULL,
+	[ParentGuardianId] [uniqueidentifier] NULL,
+	[PatientId] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_Note] PRIMARY KEY CLUSTERED 
 (
-	[ID] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_Arts] FOREIGN KEY([ArtsID])
-REFERENCES [dbo].[Arts] ([ID])
+ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_Docter] FOREIGN KEY([DocterId])
+REFERENCES [dbo].[Docter] ([Id])
 GO
-ALTER TABLE [dbo].[Patient] CHECK CONSTRAINT [FK_Patient_Arts]
+ALTER TABLE [dbo].[Patient] CHECK CONSTRAINT [FK_Patient_Docter]
 GO
-ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_OuderVoogd] FOREIGN KEY([OuderVoogdID])
-REFERENCES [dbo].[OuderVoogd] ([ID])
+ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_ParentGuardian] FOREIGN KEY([ParentGuardianId])
+REFERENCES [dbo].[ParentGuardian] ([Id])
 GO
-ALTER TABLE [dbo].[Patient] CHECK CONSTRAINT [FK_Patient_OuderVoogd]
+ALTER TABLE [dbo].[Patient] CHECK CONSTRAINT [FK_Patient_ParentGuardian]
 GO
-ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_Traject] FOREIGN KEY([TrajectID])
-REFERENCES [dbo].[Traject] ([ID])
+ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_Traject] FOREIGN KEY([TrajectId])
+REFERENCES [dbo].[Traject] ([Id])
 GO
 ALTER TABLE [dbo].[Patient] CHECK CONSTRAINT [FK_Patient_Traject]
 GO
-ALTER TABLE [dbo].[Traject_ZorgMoment]  WITH CHECK ADD  CONSTRAINT [FK_Traject_ZorgMoment_Traject] FOREIGN KEY([TrajectID])
-REFERENCES [dbo].[Traject] ([ID])
+ALTER TABLE [dbo].[Traject_CareMoment]  WITH CHECK ADD  CONSTRAINT [FK_Traject_CareMoment_Traject] FOREIGN KEY([TrajectId])
+REFERENCES [dbo].[Traject] ([Id])
 GO
-ALTER TABLE [dbo].[Traject_ZorgMoment] CHECK CONSTRAINT [FK_Traject_ZorgMoment_Traject]
+ALTER TABLE [dbo].[Traject_CareMoment] CHECK CONSTRAINT [FK_Traject_CareMoment_Traject]
 GO
-ALTER TABLE [dbo].[Traject_ZorgMoment]  WITH CHECK ADD  CONSTRAINT [FK_Traject_ZorgMoment_ZorgMoment] FOREIGN KEY([ZorgMomentID])
-REFERENCES [dbo].[ZorgMoment] ([ID])
+ALTER TABLE [dbo].[Traject_CareMoment]  WITH CHECK ADD  CONSTRAINT [FK_Traject_CareMoment_CareMoment] FOREIGN KEY([CareMomentId])
+REFERENCES [dbo].[CareMoment] ([Id])
 GO
-ALTER TABLE [dbo].[Traject_ZorgMoment] CHECK CONSTRAINT [FK_Traject_ZorgMoment_ZorgMoment]
+ALTER TABLE [dbo].[Traject_CareMoment] CHECK CONSTRAINT [FK_Traject_CareMoment_CareMoment]
 GO
-ALTER TABLE [dbo].[Notitie]  WITH CHECK ADD  CONSTRAINT [FK_Notitie_OuderVoogd] FOREIGN KEY([OuderVoogdID])
-REFERENCES [dbo].[OuderVoogd] ([ID])
+ALTER TABLE [dbo].[Note]  WITH CHECK ADD  CONSTRAINT [FK_Note_ParentGuardian] FOREIGN KEY([ParentGuardianId])
+REFERENCES [dbo].[ParentGuardian] ([Id])
 GO
-ALTER TABLE [dbo].[Notitie] CHECK CONSTRAINT [FK_Notitie_OuderVoogd]
+ALTER TABLE [dbo].[Note] CHECK CONSTRAINT [FK_Note_ParentGuardian]
 GO
-ALTER TABLE [dbo].[Notitie]  WITH CHECK ADD  CONSTRAINT [FK_Notitie_Patient] FOREIGN KEY([PatientID])
-REFERENCES [dbo].[Patient] ([ID])
+ALTER TABLE [dbo].[Note]  WITH CHECK ADD  CONSTRAINT [FK_Note_Patient] FOREIGN KEY([PatientId])
+REFERENCES [dbo].[Patient] ([Id])
 GO
-ALTER TABLE [dbo].[Notitie] CHECK CONSTRAINT [FK_Notitie_Patient]
+ALTER TABLE [dbo].[Note] CHECK CONSTRAINT [FK_Note_Patient]
 GO
