@@ -28,8 +28,8 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var docters = await _doctorRepository.ReadAllAsync();
-            return Ok(docters);
+            var doctors = await _doctorRepository.ReadAllAsync();
+            return Ok(doctors);
         }
 
         [HttpGet("{doctorId}", Name = "ReadDoctor")]
