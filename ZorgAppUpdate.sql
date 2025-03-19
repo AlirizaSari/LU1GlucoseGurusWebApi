@@ -1,18 +1,18 @@
 GO
-/****** Object:  Table [dbo].[Docter]    Script Date: 13-2-2025 17:49:29 ******/
+/****** Object:  Table [dbo].[Doctor]    Script Date: 13-2-2025 17:49:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Docter](
+CREATE TABLE [dbo].[Doctor](
 	[Id] [uniqueidentifier] NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
 	[Specialization] [nvarchar](50) NOT NULL,
- CONSTRAINT [PK_Docter] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Doctor] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_Docter] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UK_Doctor] UNIQUE NONCLUSTERED 
 (
 	[Name] ASC,
 	[Specialization] ASC
@@ -47,7 +47,7 @@ CREATE TABLE [dbo].[Patient](
 	[Avatar] [int],
 	[ParentGuardianId] [uniqueidentifier] NOT NULL,
 	[TrajectId] [uniqueidentifier] NOT NULL,
-	[DocterId] [uniqueidentifier] NULL,
+	[DoctorId] [uniqueidentifier] NULL,
  CONSTRAINT [PK_Patient] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -127,10 +127,10 @@ CREATE TABLE [dbo].[Note](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_Docter] FOREIGN KEY([DocterId])
-REFERENCES [dbo].[Docter] ([Id])
+ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_Doctor] FOREIGN KEY([DoctorId])
+REFERENCES [dbo].[Doctor] ([Id])
 GO
-ALTER TABLE [dbo].[Patient] CHECK CONSTRAINT [FK_Patient_Docter]
+ALTER TABLE [dbo].[Patient] CHECK CONSTRAINT [FK_Patient_Doctor]
 GO
 ALTER TABLE [dbo].[Patient]  WITH CHECK ADD  CONSTRAINT [FK_Patient_ParentGuardian] FOREIGN KEY([ParentGuardianId])
 REFERENCES [dbo].[ParentGuardian] ([Id])

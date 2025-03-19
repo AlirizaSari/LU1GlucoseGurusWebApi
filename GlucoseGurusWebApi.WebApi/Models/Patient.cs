@@ -18,7 +18,7 @@ namespace GlucoseGurusWebApi.WebApi.Models
         public Guid ParentGuardianId { get; set; }
 
         [Required]
-        public Guid TracjetId { get; set; }
+        public Guid TrajectId { get; set; }
 
         public Guid DoctorId { get; set; }
     }

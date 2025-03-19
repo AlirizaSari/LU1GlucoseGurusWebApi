@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using GlucoseGurusWebApi.WebApi.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Identity;
 
@@ -46,6 +47,11 @@ builder.Services.Configure<RouteOptions>(o => o.LowercaseUrls = true);
 
 var sqlConnectionString = builder.Configuration["SqlConnectionString"];
 var sqlConnectionStringFound = !string.IsNullOrWhiteSpace(sqlConnectionString);
+
+builder.Services.AddTransient<IDoctorRepository, SqlDoctorRepository>(provider => new SqlDoctorRepository(sqlConnectionString));
+builder.Services.AddTransient<ITrajectRepository, SqlTrajectRepository>(provider => new SqlTrajectRepository(sqlConnectionString));
+builder.Services.AddTransient<IPatientRepository, SqlPatientRepository>(provider => new SqlPatientRepository(sqlConnectionString));
+builder.Services.AddTransient<IParentGuardianRepository, SqlParentGuardianRepository>(provider => new SqlParentGuardianRepository(sqlConnectionString));
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IAuthenticationService, AspNetIdentityAuthenticationService>();
