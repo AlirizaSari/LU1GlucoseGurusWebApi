@@ -2,7 +2,7 @@
 
 namespace GlucoseGurusWebApi.WebApi.Models
 {
-    public class Docter
+    public class Doctor
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 

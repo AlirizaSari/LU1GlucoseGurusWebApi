@@ -14,7 +14,6 @@ namespace GlucoseGurusWebApi.WebApi.Models
         public string? Name { get; set; }
 
         [Required]
-
         public int Step { get; set; }
     }
 }
