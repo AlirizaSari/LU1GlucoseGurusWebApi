@@ -30,6 +30,14 @@ namespace GlucoseGurusWebApi.WebApi.Repositories
             }
         }
 
+        public async Task<IEnumerable<Patient>> ReadByParentGuardianAsync(Guid parentGuardianId)
+        {
+            using (var sqlConnection = new SqlConnection(sqlConnectionString))
+            {
+                return await sqlConnection.QueryAsync<Patient>("SELECT * FROM [Patient] WHERE ParentGuardianId = @ParentGuardianId", new { ParentGuardianId = parentGuardianId });
+            }
+        }
+
         public async Task<IEnumerable<Patient>> ReadAllAsync()
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
