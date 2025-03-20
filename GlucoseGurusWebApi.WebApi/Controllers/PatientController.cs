@@ -12,16 +12,16 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
     {
         private readonly IPatientRepository _patientRepository;
         private readonly IParentGuardianRepository _parentGuardianRepository;
-        private readonly IDoctorRepository _docterRepository;
+        private readonly IDoctorRepository _doctorRepository;
         private readonly ITrajectRepository _trajectRepository;
         private readonly IAuthenticationService _authenticationService;
         private readonly ILogger<PatientController> _logger;
 
-        public PatientController(IPatientRepository patientRepository, IParentGuardianRepository parentGuardianRepository, IDoctorRepository docterRepository, ITrajectRepository trajectRepository, IAuthenticationService authenticationService, ILogger<PatientController> logger)
+        public PatientController(IPatientRepository patientRepository, IParentGuardianRepository parentGuardianRepository, IDoctorRepository doctorRepository, ITrajectRepository trajectRepository, IAuthenticationService authenticationService, ILogger<PatientController> logger)
         {
             _patientRepository = patientRepository;
             _parentGuardianRepository = parentGuardianRepository;
-            _docterRepository = docterRepository;
+            _doctorRepository = doctorRepository;
             _trajectRepository = trajectRepository;
             _authenticationService = authenticationService;
             _logger = logger;
@@ -86,9 +86,9 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (traject == null)
                 return NotFound($"Traject does not exist.");
 
-            var doctor = await _docterRepository.ReadAsync(doctorId);
+            var doctor = await _doctorRepository.ReadAsync(doctorId);
             if (doctor == null)
-                return NotFound($"Docter does not exist.");
+                return NotFound($"Doctor does not exist.");
 
             newPatient.ParentGuardianId = parentGuardianId;
             newPatient.TrajectId = trajectId;
@@ -116,9 +116,9 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (traject == null)
                 return NotFound($"Traject does not exist.");
 
-            var doctor = await _docterRepository.ReadAsync(doctorId);
+            var doctor = await _doctorRepository.ReadAsync(doctorId);
             if (doctor == null)
-                return NotFound($"Docter does not exist.");
+                return NotFound($"Doctor does not exist.");
 
             updatedPatient.Id = patientId;
             updatedPatient.ParentGuardianId = parentGuardianId;

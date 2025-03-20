@@ -7,84 +7,84 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("Docters")]
+    [Route("Doctors")]
     public class DoctorController : ControllerBase
     {
-        private readonly IDoctorRepository _docterRepository;
+        private readonly IDoctorRepository _doctorRepository;
         private readonly IAuthenticationService _authenticationService;
         private readonly ILogger<DoctorController> _logger;
 
-        public DoctorController(IDoctorRepository docterRepository, IAuthenticationService authenticationService, ILogger<DoctorController> logger)
+        public DoctorController(IDoctorRepository doctorRepository, IAuthenticationService authenticationService, ILogger<DoctorController> logger)
         {
-            _docterRepository = docterRepository;
+            _doctorRepository = doctorRepository;
             _authenticationService = authenticationService;
             _logger = logger;
         }
 
-        [HttpGet(Name = "ReadDocters")]
+        [HttpGet(Name = "ReadDoctors")]
         public async Task<ActionResult<IEnumerable<Doctor>>> Get()
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
                 return Unauthorized();
 
-            var docters = await _docterRepository.ReadAllAsync();
-            return Ok(docters);
+            var doctors = await _doctorRepository.ReadAllAsync();
+            return Ok(doctors);
         }
 
-        [HttpGet("{docterId}", Name = "ReadDocter")]
-        public async Task<ActionResult<Doctor>> Get(Guid docterId)
+        [HttpGet("{doctorId}", Name = "ReadDoctor")]
+        public async Task<ActionResult<Doctor>> Get(Guid doctorId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
                 return Unauthorized();
 
-            var docter = await _docterRepository.ReadAsync(docterId);
-            if (docter == null)
-                return NotFound($"Docter does not exist.");
+            var doctor = await _doctorRepository.ReadAsync(doctorId);
+            if (doctor == null)
+                return NotFound($"Doctor does not exist.");
 
-            return Ok(docter);
+            return Ok(doctor);
         }
 
-        [HttpPost(Name = "CreateDocter")]
-        public async Task<ActionResult<Doctor>> Add(Doctor newDocter)
+        [HttpPost(Name = "CreateDoctor")]
+        public async Task<ActionResult<Doctor>> Add(Doctor newDoctor)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
                 return Unauthorized();
 
-            var docter = await _docterRepository.InsertAsync(newDocter);
-            return CreatedAtRoute("ReadDocter", new { docterId = docter.Id }, docter);
+            var doctor = await _doctorRepository.InsertAsync(newDoctor);
+            return CreatedAtRoute("ReadDoctor", new { doctorId = doctor.Id }, doctor);
         }
 
-        [HttpPut("{docterId}", Name = "UpdateDocter")]
-        public async Task<ActionResult> Update(Guid docterId, Doctor updatedDocter)
+        [HttpPut("{doctorId}", Name = "UpdateDoctor")]
+        public async Task<ActionResult> Update(Guid doctorId, Doctor updatedDoctor)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
                 return Unauthorized();
 
-            var docter = await _docterRepository.ReadAsync(docterId);
-            if (docter == null)
-                return NotFound($"Docter does not exist.");
+            var doctor = await _doctorRepository.ReadAsync(doctorId);
+            if (doctor == null)
+                return NotFound($"Doctor does not exist.");
 
-            updatedDocter.Id = docterId;
-            await _docterRepository.UpdateAsync(updatedDocter);
-            return Ok(updatedDocter);
+            updatedDoctor.Id = doctorId;
+            await _doctorRepository.UpdateAsync(updatedDoctor);
+            return Ok(updatedDoctor);
         }
 
-        [HttpDelete("{docterId}", Name = "DeleteDocter")]
-        public async Task<ActionResult> Delete(Guid docterId)
+        [HttpDelete("{doctorId}", Name = "DeleteDoctor")]
+        public async Task<ActionResult> Delete(Guid doctorId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
                 return Unauthorized();
 
-            var docter = await _docterRepository.ReadAsync(docterId);
-            if (docter == null)
-                return NotFound($"Docter does not exist.");
+            var doctor = await _doctorRepository.ReadAsync(doctorId);
+            if (doctor == null)
+                return NotFound($"Doctor does not exist.");
 
-            await _docterRepository.DeleteAsync(docterId);
+            await _doctorRepository.DeleteAsync(doctorId);
             return Ok();
         }
     }
