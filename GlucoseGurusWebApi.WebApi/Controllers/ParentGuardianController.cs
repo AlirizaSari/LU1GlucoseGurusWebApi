@@ -8,7 +8,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("ParentGuardians")]
+    [Route("parentGuardians")]
     public class ParentGuardianController : ControllerBase
     {
         private readonly IParentGuardianRepository _parentGuardianRepository;
@@ -22,7 +22,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "ReadParentGuardians")]
+        [HttpGet(Name = "readParentGuardians")]
         public async Task<ActionResult<IEnumerable<ParentGuardian>>> Get()
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -33,7 +33,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(parentGuardians);
         }
 
-        [HttpGet("{parentGuardianId}", Name = "ReadParentGuardian")]
+        [HttpGet("{parentGuardianId}", Name = "readParentGuardian")]
         public async Task<ActionResult<ParentGuardian>> Get(Guid parentGuardianId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -47,7 +47,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(parentGuardian);
         }
 
-        [HttpPost(Name = "CreateParentGuardian")]
+        [HttpPost(Name = "createParentGuardian")]
         public async Task<ActionResult<ParentGuardian>> Add(ParentGuardian newParentGuardian)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -64,7 +64,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return CreatedAtRoute("ReadParentGuardian", new { parentGuardianId = createdParentGuardian.Id }, createdParentGuardian);
         }
 
-        [HttpPut("{parentGuardianId}", Name = "UpdateParentGuardian")]
+        [HttpPut("{parentGuardianId}", Name = "updateParentGuardian")]
         public async Task<ActionResult> Update(Guid parentGuardianId, ParentGuardian newParentGuardian)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -83,7 +83,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(newParentGuardian);
         }
 
-        [HttpDelete("{parentGuardianId}", Name = "DeleteParentGuardian")]
+        [HttpDelete("{parentGuardianId}", Name = "deleteParentGuardian")]
         public async Task<ActionResult> Delete(Guid parentGuardianId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();

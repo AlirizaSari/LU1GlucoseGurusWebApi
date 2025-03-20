@@ -21,7 +21,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "ReadNotes")]
+        [HttpGet(Name = "readNotes")]
         public async Task<ActionResult<IEnumerable<Note>>> Get()
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -32,7 +32,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(Notes);
         }
 
-        [HttpGet("{NoteId}", Name = "ReadNote")]
+        [HttpGet("{NoteId}", Name = "readNote")]
         public async Task<ActionResult<Note>> Get(Guid NoteId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -46,7 +46,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(Note);
         }
 
-        [HttpPost(Name = "CreateNote")]
+        [HttpPost(Name = "createNote")]
         public async Task<ActionResult<Note>> Add(Note newNote)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -57,7 +57,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return CreatedAtRoute("ReadNote", new { NoteId = Note.Id }, Note);
         }
 
-        [HttpPut("{NoteId}", Name = "UpdateNote")]
+        [HttpPut("{NoteId}", Name = "updateNote")]
         public async Task<ActionResult> Update(Guid NoteId, Note updatedNote)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -73,7 +73,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(updatedNote);
         }
 
-        [HttpDelete("{NoteId}", Name = "DeleteNote")]
+        [HttpDelete("{NoteId}", Name = "deleteNote")]
         public async Task<ActionResult> Delete(Guid NoteId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();

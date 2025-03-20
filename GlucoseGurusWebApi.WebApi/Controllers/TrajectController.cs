@@ -7,7 +7,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("Trajects")]
+    [Route("trajects")]
     public class TrajectController : ControllerBase
     {
         private readonly ITrajectRepository _trajectRepository;
@@ -21,7 +21,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "ReadTrajects")]
+        [HttpGet(Name = "readTrajects")]
         public async Task<ActionResult<IEnumerable<Traject>>> Get()
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -32,7 +32,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(trajects);
         }
 
-        [HttpGet("{trajectId}", Name = "ReadTraject")]
+        [HttpGet("{trajectId}", Name = "readTraject")]
         public async Task<ActionResult<Traject>> Get(Guid trajectId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -46,7 +46,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(traject);
         }
 
-        [HttpPost(Name = "CreateTraject")]
+        [HttpPost(Name = "createTraject")]
         public async Task<ActionResult<Traject>> Add(Traject newTraject)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -57,7 +57,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return CreatedAtRoute("ReadTraject", new { trajectId = traject.Id }, traject);
         }
 
-        [HttpPut("{trajectId}", Name = "UpdateTraject")]
+        [HttpPut("{trajectId}", Name = "updateTraject")]
         public async Task<ActionResult> Update(Guid trajectId, Traject updatedTraject)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -73,7 +73,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(updatedTraject);
         }
 
-        [HttpDelete("{trajectId}", Name = "DeleteTraject")]
+        [HttpDelete("{trajectId}", Name = "deleteTraject")]
         public async Task<ActionResult> Delete(Guid trajectId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();

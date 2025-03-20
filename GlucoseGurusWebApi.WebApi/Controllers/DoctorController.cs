@@ -7,7 +7,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("Doctors")]
+    [Route("doctors")]
     public class DoctorController : ControllerBase
     {
         private readonly IDoctorRepository _doctorRepository;
@@ -21,7 +21,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "ReadDoctors")]
+        [HttpGet(Name = "readDoctors")]
         public async Task<ActionResult<IEnumerable<Doctor>>> Get()
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -32,7 +32,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(doctors);
         }
 
-        [HttpGet("{doctorId}", Name = "ReadDoctor")]
+        [HttpGet("{doctorId}", Name = "readDoctor")]
         public async Task<ActionResult<Doctor>> Get(Guid doctorId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -46,7 +46,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(doctor);
         }
 
-        [HttpPost(Name = "CreateDoctor")]
+        [HttpPost(Name = "createDoctor")]
         public async Task<ActionResult<Doctor>> Add(Doctor newDoctor)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -57,7 +57,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return CreatedAtRoute("ReadDoctor", new { doctorId = doctor.Id }, doctor);
         }
 
-        [HttpPut("{doctorId}", Name = "UpdateDoctor")]
+        [HttpPut("{doctorId}", Name = "updateDoctor")]
         public async Task<ActionResult> Update(Guid doctorId, Doctor updatedDoctor)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -73,7 +73,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(updatedDoctor);
         }
 
-        [HttpDelete("{doctorId}", Name = "DeleteDoctor")]
+        [HttpDelete("{doctorId}", Name = "deleteDoctor")]
         public async Task<ActionResult> Delete(Guid doctorId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
