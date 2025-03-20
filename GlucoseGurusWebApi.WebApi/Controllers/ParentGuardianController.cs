@@ -61,7 +61,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             newParentGuardian.UserId = userId;
 
             var createdParentGuardian = await _parentGuardianRepository.InsertAsync(newParentGuardian);
-            return CreatedAtRoute("ReadParentGuardian", new { parentGuardianId = createdParentGuardian.Id }, createdParentGuardian);
+            return CreatedAtRoute("readParentGuardian", new { parentGuardianId = createdParentGuardian.Id }, createdParentGuardian);
         }
 
         [HttpPut("{parentGuardianId}", Name = "updateParentGuardian")]
