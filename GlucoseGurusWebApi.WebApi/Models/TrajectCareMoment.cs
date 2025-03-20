@@ -2,7 +2,7 @@
 
 namespace GlucoseGurusWebApi.WebApi.Models
 {
-    public class TracjetCareMoment
+    public class TrajectCareMoment
     {
         [Required]
         public Guid TrajectId { get; set; }

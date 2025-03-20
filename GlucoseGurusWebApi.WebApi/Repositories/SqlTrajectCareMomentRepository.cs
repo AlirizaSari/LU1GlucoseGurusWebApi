@@ -13,36 +13,36 @@ namespace GlucoseGurusWebApi.WebApi.Repositories
             this.sqlConnectionString = sqlConnectionString;
         }
 
-        public async Task<TracjetCareMoment> InsertAsync(TracjetCareMoment tracjetCareMoment)
+        public async Task<TrajectCareMoment> InsertAsync(TrajectCareMoment tracjetCareMoment)
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                var trajectCareMomentId = await sqlConnection.ExecuteAsync("INSERT INTO [TrajectCareMoment] (TrajectId, CareMomentId, Name, Step) VALUES (@TrajectId, @CareMomentId, @Name, @Step)", tracjetCareMoment);
+                var trajectCareMomentId = await sqlConnection.ExecuteAsync("INSERT INTO [Traject_CareMoment] (TrajectId, CareMomentId, Name, Step) VALUES (@TrajectId, @CareMomentId, @Name, @Step)", tracjetCareMoment);
                 return tracjetCareMoment;
             }
         }
 
-        public async Task<TracjetCareMoment?> ReadAsync(Guid trajectId, Guid careMomentId)
+        public async Task<TrajectCareMoment?> ReadAsync(Guid trajectId, Guid careMomentId)
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                return await sqlConnection.QueryFirstOrDefaultAsync<TracjetCareMoment>("SELECT * FROM [TrajectCareMoment] WHERE TrajectId = @TrajectId AND CareMomentId = @CareMomentId", new { TrajectId = trajectId, CareMomentId = careMomentId });
+                return await sqlConnection.QueryFirstOrDefaultAsync<TrajectCareMoment>("SELECT * FROM [Traject_CareMoment] WHERE TrajectId = @TrajectId AND CareMomentId = @CareMomentId", new { TrajectId = trajectId, CareMomentId = careMomentId });
             }
         }
 
-        public async Task<IEnumerable<TracjetCareMoment>> ReadAllAsync()
+        public async Task<IEnumerable<TrajectCareMoment>> ReadAllAsync()
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                return await sqlConnection.QueryAsync<TracjetCareMoment>("SELECT * FROM [TrajectCareMoment]");
+                return await sqlConnection.QueryAsync<TrajectCareMoment>("SELECT * FROM [Traject_CareMoment]");
             }
         }
 
-        public async Task UpdateAsync(TracjetCareMoment tracjetCareMoment)
+        public async Task UpdateAsync(TrajectCareMoment tracjetCareMoment)
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                await sqlConnection.ExecuteAsync("UPDATE [TrajectCareMoment] SET Name = @Name, Step = @Step WHERE TrajectId = @TrajectId AND CareMomentId = @CareMomentId", tracjetCareMoment);
+                await sqlConnection.ExecuteAsync("UPDATE [Traject_CareMoment] SET Name = @Name, Step = @Step WHERE TrajectId = @TrajectId AND CareMomentId = @CareMomentId", tracjetCareMoment);
             }
         }
 
@@ -50,7 +50,7 @@ namespace GlucoseGurusWebApi.WebApi.Repositories
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                await sqlConnection.ExecuteAsync("DELETE FROM [TrajectCareMoment] WHERE TrajectId = @TrajectId AND CareMomentId = @CareMomentId", new { TrajectId = trajectId, CareMomentId = careMomentId });
+                await sqlConnection.ExecuteAsync("DELETE FROM [Traject_CareMoment] WHERE TrajectId = @TrajectId AND CareMomentId = @CareMomentId", new { TrajectId = trajectId, CareMomentId = careMomentId });
             }
         }
     }
