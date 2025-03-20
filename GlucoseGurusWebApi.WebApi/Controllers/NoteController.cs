@@ -12,13 +12,17 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
     {
         private readonly ILogger<NoteController> _logger;
         private readonly INoteRepository _NoteRepository;
+        private readonly IParentGuardianRepository _parentGuardianRepository;
+        private readonly IPatientRepository _patientRepository;
         private readonly IAuthenticationService _authenticationService;
 
-        public NoteController(INoteRepository NoteRepository, IAuthenticationService authenticationService, ILogger<NoteController> logger)
+        public NoteController(ILogger<NoteController> logger, INoteRepository NoteRepository, IParentGuardianRepository parentGuardianRepository, IPatientRepository patientRepository, IAuthenticationService authenticationService)
         {
-            _NoteRepository = NoteRepository;
-            _authenticationService = authenticationService;
             _logger = logger;
+            _NoteRepository = NoteRepository;
+            _parentGuardianRepository = parentGuardianRepository;
+            _patientRepository = patientRepository;
+            _authenticationService = authenticationService;
         }
 
         [HttpGet(Name = "readNotes")]
@@ -52,6 +56,17 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
                 return Unauthorized();
+
+            var parentGuardian = await _parentGuardianRepository.ReadAsync(newNote.ParentGuardianId);
+            if (parentGuardian == null || parentGuardian.UserId != userId)
+                return BadRequest($"ParentGuardian does not belong to the current user.");
+
+            var patient = await _patientRepository.ReadAsync(newNote.PatientId);
+            if (patient == null || patient.ParentGuardianId != parentGuardian.Id)
+                return BadRequest($"Patient does not belong to the parent guardian.");
+
+            newNote.ParentGuardianId = parentGuardian.Id;
+            newNote.PatientId = patient.Id;
 
             var Note = await _NoteRepository.InsertAsync(newNote);
             return CreatedAtRoute("ReadNote", new { NoteId = Note.Id }, Note);
