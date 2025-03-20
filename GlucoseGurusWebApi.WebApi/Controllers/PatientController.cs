@@ -7,7 +7,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("ParentGuardians")]
+    [Route("parentGuardians")]
     public class PatientController : ControllerBase
     {
         private readonly IPatientRepository _patientRepository;
@@ -27,7 +27,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet("Patients", Name = "ReadPatients")]
+        [HttpGet("patients", Name = "readPatients")]
         public async Task<ActionResult<IEnumerable<Patient>>> Get()
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -38,7 +38,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(patients);
         }
 
-        [HttpGet("Patients/{patientId}", Name = "ReadPatient")]
+        [HttpGet("patients/{patientId}", Name = "readPatient")]
         public async Task<ActionResult<Patient>> Get(Guid patientId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -56,7 +56,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(patient);
         }
 
-        [HttpGet("{parentGuardianId}/Patients", Name = "ReadPatientsByParentGuardian")]
+        [HttpGet("{parentGuardianId}/patients", Name = "readPatientsByParentGuardian")]
         public async Task<ActionResult<IEnumerable<Patient>>> GetByParentGuardian(Guid parentGuardianId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -71,7 +71,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(patients);
         }
 
-        [HttpPost("{parentGuardianId}/Patients", Name = "CreatePatient")]
+        [HttpPost("{parentGuardianId}/patients", Name = "createPatient")]
         public async Task<ActionResult<Patient>> Add(Guid parentGuardianId, Guid trajectId, Guid doctorId, Patient newPatient)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -97,7 +97,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return CreatedAtRoute("ReadPatient", new { patientId = patient.Id }, patient);
         }
 
-        [HttpPut("{parentGuardianId}/Patients/{patientId}", Name = "UpdatePatient")]
+        [HttpPut("{parentGuardianId}/patients/{patientId}", Name = "updatePatient")]
         public async Task<ActionResult> Update(Guid parentGuardianId, Guid trajectId, Guid doctorId, Guid patientId, Patient updatedPatient)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
@@ -128,7 +128,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(updatedPatient);
         }
 
-        [HttpDelete("{parentGuardianId}/Patients/{patientId}", Name = "DeletePatient")]
+        [HttpDelete("{parentGuardianId}/patients/{patientId}", Name = "deletePatient")]
         public async Task<ActionResult> Delete(Guid parentGuardianId, Guid patientId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
