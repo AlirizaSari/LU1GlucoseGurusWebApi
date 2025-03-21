@@ -12,6 +12,9 @@ namespace GlucoseGurusWebApi.WebApi.Models
         [Required]
         public string? Text { get; set; }
 
+        [Range(1, 5)]
+        public int UserMood { get; set; }
+
         public Guid ParentGuardianId { get; set; }
 
         public Guid PatientId { get; set; }

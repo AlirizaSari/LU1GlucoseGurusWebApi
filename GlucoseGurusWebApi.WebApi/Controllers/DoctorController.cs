@@ -54,7 +54,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return Unauthorized();
 
             var doctor = await _doctorRepository.InsertAsync(newDoctor);
-            return CreatedAtRoute("ReadDoctor", new { doctorId = doctor.Id }, doctor);
+            return CreatedAtRoute("readDoctor", new { doctorId = doctor.Id }, doctor);
         }
 
         [HttpPut("{doctorId}", Name = "updateDoctor")]

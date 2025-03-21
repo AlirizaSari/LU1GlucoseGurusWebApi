@@ -52,6 +52,9 @@ builder.Services.AddTransient<IDoctorRepository, SqlDoctorRepository>(provider =
 builder.Services.AddTransient<ITrajectRepository, SqlTrajectRepository>(provider => new SqlTrajectRepository(sqlConnectionString));
 builder.Services.AddTransient<IPatientRepository, SqlPatientRepository>(provider => new SqlPatientRepository(sqlConnectionString));
 builder.Services.AddTransient<IParentGuardianRepository, SqlParentGuardianRepository>(provider => new SqlParentGuardianRepository(sqlConnectionString));
+builder.Services.AddTransient<INoteRepository, SqlNoteRepository>(provider => new SqlNoteRepository(sqlConnectionString));
+builder.Services.AddTransient<ICareMomentRepository, SqlCareMomentRepository>(provider => new SqlCareMomentRepository(sqlConnectionString));
+builder.Services.AddTransient<ITrajectCareMomentRepository, SqlTrajectCareMomentRepository>(provider => new SqlTrajectCareMomentRepository(sqlConnectionString));
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IAuthenticationService, AspNetIdentityAuthenticationService>();

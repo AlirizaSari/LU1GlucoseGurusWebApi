@@ -54,7 +54,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return Unauthorized();
 
             var traject = await _trajectRepository.InsertAsync(newTraject);
-            return CreatedAtRoute("ReadTraject", new { trajectId = traject.Id }, traject);
+            return CreatedAtRoute("readTraject", new { trajectId = traject.Id }, traject);
         }
 
         [HttpPut("{trajectId}", Name = "updateTraject")]

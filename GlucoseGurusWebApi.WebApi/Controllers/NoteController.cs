@@ -54,7 +54,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return Unauthorized();
 
             var Note = await _NoteRepository.InsertAsync(newNote);
-            return CreatedAtRoute("ReadNote", new { NoteId = Note.Id }, Note);
+            return CreatedAtRoute("readNote", new { NoteId = Note.Id }, Note);
         }
 
         [HttpPut("{NoteId}", Name = "updateNote")]
