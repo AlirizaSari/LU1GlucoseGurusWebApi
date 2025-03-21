@@ -17,7 +17,7 @@ namespace GlucoseGurusWebApi.WebApi.Repositories
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                var noteId = await sqlConnection.ExecuteAsync("INSERT INTO [Note] (Id, Date, Text, ParentGuardianId, PatientId ) VALUES (@Id, @Date, @Text, @ParentGuardianId, @PatientId)", note);
+                var noteId = await sqlConnection.ExecuteAsync("INSERT INTO [Note] (Id, Date, Text, UserMood, ParentGuardianId, PatientId ) VALUES (@Id, @Date, @Text, @UserMood, @ParentGuardianId, @PatientId)", note);
                 return note;
             }
         }
@@ -42,7 +42,7 @@ namespace GlucoseGurusWebApi.WebApi.Repositories
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                await sqlConnection.ExecuteAsync("UPDATE [Note] SET Name = @Name, Date = @Date, Text = @Text, ParentGuardianId = @ParentGuardianId, PatientId = @PatientId WHERE Id = @Id", note);
+                await sqlConnection.ExecuteAsync("UPDATE [Note] SET Name = @Name, Date = @Date, Text = @Text, UserMood = @UserMood, ParentGuardianId = @ParentGuardianId, PatientId = @PatientId WHERE Id = @Id", note);
             }
         }
 

@@ -119,6 +119,7 @@ CREATE TABLE [dbo].[Note](
 	[Id] [uniqueidentifier] NOT NULL,
 	[Date] [datetime] NOT NULL,
 	[Text] [nvarchar](500) NOT NULL,
+	[UserMood] [int] NULL,
 	[ParentGuardianId] [uniqueidentifier] NULL,
 	[PatientId] [uniqueidentifier] NULL,
  CONSTRAINT [PK_Note] PRIMARY KEY CLUSTERED 
