@@ -87,6 +87,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             updatedTrajectCareMoment.CareMomentId = careMomentId;
 
             await _trajectCareMomentRepository.UpdateAsync(updatedTrajectCareMoment);
+
             return Ok(updatedTrajectCareMoment);
         }
 
