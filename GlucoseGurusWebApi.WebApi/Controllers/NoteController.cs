@@ -70,6 +70,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 
             updatedNote.Id = NoteId;
             await _NoteRepository.UpdateAsync(updatedNote);
+
             return Ok(updatedNote);
         }
 
