@@ -86,6 +86,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return NotFound($"Note does not exist.");
 
             await _NoteRepository.DeleteAsync(NoteId);
+
             return Ok();
         }
     }
