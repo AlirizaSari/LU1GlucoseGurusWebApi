@@ -246,8 +246,10 @@ GO
 CREATE TABLE [dbo].[Traject_CareMoment](
 	[TrajectId] [uniqueidentifier] NOT NULL,
 	[CareMomentId] [uniqueidentifier] NOT NULL,
-	[Name] [nvarchar](50) NOT NULL,
+	[Name] [nvarchar](50) NULL,
 	[Step] [int] NOT NULL,
+	[IsCompleted] [bit] NOT NULL,
+
  CONSTRAINT [PK_Traject_CareMoment] PRIMARY KEY CLUSTERED 
 (
 	[TrajectId] ASC,

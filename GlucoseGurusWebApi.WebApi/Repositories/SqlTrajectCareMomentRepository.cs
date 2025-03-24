@@ -17,7 +17,7 @@ namespace GlucoseGurusWebApi.WebApi.Repositories
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                var trajectCareMomentId = await sqlConnection.ExecuteAsync("INSERT INTO [Traject_CareMoment] (TrajectId, CareMomentId, Name, Step) VALUES (@TrajectId, @CareMomentId, @Name, @Step)", tracjetCareMoment);
+                var trajectCareMomentId = await sqlConnection.ExecuteAsync("INSERT INTO [Traject_CareMoment] (TrajectId, CareMomentId, Name, Step, IsCompleted) VALUES (@TrajectId, @CareMomentId, @Name, @Step, @IsCompleted)", tracjetCareMoment);
                 return tracjetCareMoment;
             }
         }
@@ -42,7 +42,7 @@ namespace GlucoseGurusWebApi.WebApi.Repositories
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                await sqlConnection.ExecuteAsync("UPDATE [Traject_CareMoment] SET Name = @Name, Step = @Step WHERE TrajectId = @TrajectId AND CareMomentId = @CareMomentId", tracjetCareMoment);
+                await sqlConnection.ExecuteAsync("UPDATE [Traject_CareMoment] SET Name = @Name, Step = @Step, IsCompleted = @IsCompleted WHERE TrajectId = @TrajectId AND CareMomentId = @CareMomentId", tracjetCareMoment);
             }
         }
 
