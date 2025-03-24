@@ -10,10 +10,12 @@ namespace GlucoseGurusWebApi.WebApi.Models
         [Required]
         public Guid CareMomentId { get; set; }
 
-        [Required]
         public string? Name { get; set; }
 
         [Required]
         public int Step { get; set; }
+
+        [Required]
+        public bool IsCompleted { get; set; }
     }
 }
