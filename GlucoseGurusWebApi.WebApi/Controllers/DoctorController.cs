@@ -29,6 +29,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return Unauthorized();
 
             var doctors = await _doctorRepository.ReadAllAsync();
+
             return Ok(doctors);
         }
 
