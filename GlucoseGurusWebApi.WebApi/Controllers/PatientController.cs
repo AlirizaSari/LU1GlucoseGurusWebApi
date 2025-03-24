@@ -145,6 +145,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return NotFound($"Patient does not exist.");
 
             await _patientRepository.DeleteAsync(patientId);
+
             return Ok();
         }
     }
