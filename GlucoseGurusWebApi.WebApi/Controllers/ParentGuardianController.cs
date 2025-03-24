@@ -30,6 +30,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return Unauthorized();
 
             var parentGuardians = await _parentGuardianRepository.ReadAllByUserIdAsync(userId);
+
             return Ok(parentGuardians);
         }
 
