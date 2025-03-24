@@ -125,6 +125,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             updatedPatient.TrajectId = trajectId;
             updatedPatient.DoctorId = doctorId;
             await _patientRepository.UpdateAsync(updatedPatient);
+
             return Ok(updatedPatient);
         }
 
