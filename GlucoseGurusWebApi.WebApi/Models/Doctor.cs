@@ -13,3 +13,4 @@ namespace GlucoseGurusWebApi.WebApi.Models
         public string? Specialization { get; set; }
     }
 }
+ 
