@@ -70,6 +70,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 
             updatedDoctor.Id = doctorId;
             await _doctorRepository.UpdateAsync(updatedDoctor);
+
             return Ok(updatedDoctor);
         }
 
