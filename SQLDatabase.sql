@@ -248,8 +248,7 @@ CREATE TABLE [dbo].[Traject_CareMoment](
 	[CareMomentId] [uniqueidentifier] NOT NULL,
 	[Name] [nvarchar](50) NULL,
 	[Step] [int] NOT NULL,
-	[IsCompleted] [bit] NOT NULL,
-
+	[IsCompleted] [bit] NOT NULL CONSTRAINT DF_Traject_CareMoment_IsCompleted DEFAULT 0,
  CONSTRAINT [PK_Traject_CareMoment] PRIMARY KEY CLUSTERED 
 (
 	[TrajectId] ASC,
