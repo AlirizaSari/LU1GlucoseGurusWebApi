@@ -2,6 +2,7 @@
 using GlucoseGurusWebApi.WebApi.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace GlucoseGurusWebApi.WebApi.Controllers
 {
