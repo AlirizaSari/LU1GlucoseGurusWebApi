@@ -85,7 +85,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return NotFound($"Traject does not exist.");
 
             await _trajectRepository.DeleteAsync(trajectId);
-            return Ok();
+            return NoContent();
         }
     }
 }

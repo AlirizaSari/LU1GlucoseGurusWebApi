@@ -87,7 +87,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 
             await _NoteRepository.DeleteAsync(NoteId);
 
-            return Ok();
+            return NoContent();
         }
     }
 }

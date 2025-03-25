@@ -103,7 +103,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return NotFound($"TrajectCareMoment does not exist.");
 
             await _trajectCareMomentRepository.DeleteAsync(trajectId, careMomentId);
-            return Ok();
+            return NoContent();
         }
 
     }
