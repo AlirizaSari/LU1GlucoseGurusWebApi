@@ -85,7 +85,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
                 return NotFound($"CareMoment does not exist.");
 
             await _careMomentRepository.DeleteAsync(careMomentId);
-            return Ok();
+            return NoContent();
         }
 
     }

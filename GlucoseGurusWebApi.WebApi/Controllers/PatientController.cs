@@ -146,7 +146,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 
             await _patientRepository.DeleteAsync(patientId);
 
-            return Ok();
+            return NoContent();
         }
     }
 }

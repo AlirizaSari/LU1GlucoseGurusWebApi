@@ -97,7 +97,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 
             await _parentGuardianRepository.DeleteAsync(parentGuardianId);
 
-            return Ok();
+            return NoContent();
         }
     }
 }
