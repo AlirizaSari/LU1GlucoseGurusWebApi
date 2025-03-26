@@ -46,6 +46,28 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             return Ok(Note);
         }
 
+        [HttpGet("patient/{patientId}", Name = "readNotesByPatient")]
+        public async Task<ActionResult<IEnumerable<Note>>> GetByPatient(Guid patientId)
+        {
+            var userId = _authenticationService.GetCurrentAuthenticatedUserId();
+            if (userId == null)
+                return Unauthorized();
+
+            var Notes = await _NoteRepository.ReadByPatientAsync(patientId);
+            return Ok(Notes);
+        }
+
+        [HttpGet("parentGuardian/{parentGuardianId}", Name = "readNotesByParentGuardian")]
+        public async Task<ActionResult<IEnumerable<Note>>> GetByParentGuardian(Guid parentGuardianId)
+        {
+            var userId = _authenticationService.GetCurrentAuthenticatedUserId();
+            if (userId == null)
+                return Unauthorized();
+
+            var Notes = await _NoteRepository.ReadByParentGuardianAsync(parentGuardianId);
+            return Ok(Notes);
+        }
+
         [HttpPost(Name = "createNote")]
         public async Task<ActionResult<Note>> Add(Note newNote)
         {

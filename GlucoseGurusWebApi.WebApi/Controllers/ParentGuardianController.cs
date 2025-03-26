@@ -1,8 +1,9 @@
 ﻿using GlucoseGurusWebApi.WebApi.Models;
 using GlucoseGurusWebApi.WebApi.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+using System.Security.Claims;
 
 namespace GlucoseGurusWebApi.WebApi.Controllers
 {
