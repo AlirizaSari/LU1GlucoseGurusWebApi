@@ -82,17 +82,17 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (parentGuardian == null || parentGuardian.UserId != userId)
                 return NotFound($"ParentGuardian does not belong to the current user.");
 
-            var traject = await _trajectRepository.ReadAsync(trajectId);
+            var traject = await _trajectRepository.ReadAsync(newPatient.TrajectId);
             if (traject == null)
                 return NotFound($"Traject does not exist.");
 
-            var doctor = await _doctorRepository.ReadAsync(doctorId);
+            var doctor = await _doctorRepository.ReadAsync(newPatient.DoctorId);
             if (doctor == null)
                 return NotFound($"Doctor does not exist.");
 
-            newPatient.ParentGuardianId = parentGuardianId;
-            newPatient.TrajectId = trajectId;
-            newPatient.DoctorId = doctorId;
+            //newPatient.ParentGuardianId = parentGuardianId;
+            //newPatient.TrajectId = trajectId;
+            //newPatient.DoctorId = doctorId;
             var patient = await _patientRepository.InsertAsync(newPatient);
             return CreatedAtRoute("readPatient", new { patientId = patient.Id }, patient);
         }
