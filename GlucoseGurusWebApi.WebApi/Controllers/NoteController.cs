@@ -12,11 +12,15 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
     {
         private readonly ILogger<NoteController> _logger;
         private readonly INoteRepository _NoteRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IParentGuardianRepository _parentGuardianRepository;
         private readonly IAuthenticationService _authenticationService;
 
-        public NoteController(INoteRepository NoteRepository, IAuthenticationService authenticationService, ILogger<NoteController> logger)
+        public NoteController(INoteRepository NoteRepository, IPatientRepository patientRepository, IParentGuardianRepository parentGuardianRepository, IAuthenticationService authenticationService, ILogger<NoteController> logger)
         {
             _NoteRepository = NoteRepository;
+            _patientRepository = patientRepository;
+            _parentGuardianRepository = parentGuardianRepository;
             _authenticationService = authenticationService;
             _logger = logger;
         }
@@ -75,6 +79,17 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (userId == null)
                 return Unauthorized();
 
+            var parentGuardian = await _parentGuardianRepository.ReadAsync(newNote.ParentGuardianId);
+            if (parentGuardian == null || parentGuardian.UserId != userId)
+                return NotFound($"ParentGuardian does not belong to the current user.");
+
+            var patient = await _patientRepository.ReadAsync(newNote.PatientId);
+            if (patient == null)
+                return NotFound($"Patient does not exist.");
+
+            newNote.ParentGuardianId = parentGuardian.Id;
+            newNote.PatientId = patient.Id;
+
             var Note = await _NoteRepository.InsertAsync(newNote);
             return CreatedAtRoute("readNote", new { NoteId = Note.Id }, Note);
         }
@@ -90,7 +105,17 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (Note == null)
                 return NotFound($"Note does not exist.");
 
+            var parentGuardian = await _parentGuardianRepository.ReadAsync(updatedNote.ParentGuardianId);
+            if (parentGuardian == null || parentGuardian.UserId != userId)
+                return NotFound($"ParentGuardian does not belong to the current user.");
+
+            var patient = await _patientRepository.ReadAsync(updatedNote.PatientId);
+            if (patient == null)
+                return NotFound($"Patient does not exist.");
+
             updatedNote.Id = NoteId;
+            updatedNote.ParentGuardianId = parentGuardian.Id;
+            updatedNote.PatientId = patient.Id;
             await _NoteRepository.UpdateAsync(updatedNote);
 
             return Ok(updatedNote);

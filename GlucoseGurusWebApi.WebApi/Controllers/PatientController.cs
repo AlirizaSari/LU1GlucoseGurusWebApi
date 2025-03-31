@@ -72,7 +72,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
         }
 
         [HttpPost("{parentGuardianId}/patients", Name = "createPatient")]
-        public async Task<ActionResult<Patient>> Add(Guid parentGuardianId, Guid trajectId, Guid doctorId, Patient newPatient)
+        public async Task<ActionResult<Patient>> Add(Guid parentGuardianId, Patient newPatient)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
@@ -90,15 +90,16 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (doctor == null)
                 return NotFound($"Doctor does not exist.");
 
-            //newPatient.ParentGuardianId = parentGuardianId;
-            //newPatient.TrajectId = trajectId;
-            //newPatient.DoctorId = doctorId;
+            newPatient.ParentGuardianId = parentGuardianId;
+            newPatient.TrajectId = traject.Id;
+            newPatient.DoctorId = doctor.Id;
+
             var patient = await _patientRepository.InsertAsync(newPatient);
             return CreatedAtRoute("readPatient", new { patientId = patient.Id }, patient);
         }
 
         [HttpPut("{parentGuardianId}/patients/{patientId}", Name = "updatePatient")]
-        public async Task<ActionResult> Update(Guid parentGuardianId, Guid trajectId, Guid doctorId, Guid patientId, Patient updatedPatient)
+        public async Task<ActionResult> Update(Guid parentGuardianId, Guid patientId, Patient updatedPatient)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
@@ -112,18 +113,19 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (patient == null)
                 return NotFound($"Patient does not exist.");
 
-            var traject = await _trajectRepository.ReadAsync(trajectId);
+            var traject = await _trajectRepository.ReadAsync(updatedPatient.TrajectId);
             if (traject == null)
                 return NotFound($"Traject does not exist.");
 
-            var doctor = await _doctorRepository.ReadAsync(doctorId);
+            var doctor = await _doctorRepository.ReadAsync(updatedPatient.DoctorId);
             if (doctor == null)
                 return NotFound($"Doctor does not exist.");
 
             updatedPatient.Id = patientId;
             updatedPatient.ParentGuardianId = parentGuardianId;
-            updatedPatient.TrajectId = trajectId;
-            updatedPatient.DoctorId = doctorId;
+            updatedPatient.TrajectId = traject.Id;
+            updatedPatient.DoctorId = doctor.Id;
+
             await _patientRepository.UpdateAsync(updatedPatient);
 
             return Ok(updatedPatient);
