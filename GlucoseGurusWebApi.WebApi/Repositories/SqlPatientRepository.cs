@@ -17,7 +17,7 @@ namespace GlucoseGurusWebApi.WebApi.Repositories
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                var patientId = await sqlConnection.ExecuteAsync("INSERT INTO [Patient] (Id, FirstName, LastName, Avatar, ParentGuardianId, TracjectId, DocterId) VALUES (@Id, @FirstName, @LastName, @Avatar, @ParentGuardianId, @TracjectId, @DocterId)", patient);
+                var patientId = await sqlConnection.ExecuteAsync("INSERT INTO [Patient] (Id, FirstName, LastName, Avatar, ParentGuardianId, TrajectId, DoctorId) VALUES (@Id, @FirstName, @LastName, @Avatar, @ParentGuardianId, @TrajectId, @DoctorId)", patient);
                 return patient;
             }
         }
