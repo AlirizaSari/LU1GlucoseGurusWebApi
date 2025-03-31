@@ -50,7 +50,7 @@ namespace GlucoseGurusWebApi.WebApi.Repositories
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                await sqlConnection.ExecuteAsync("UPDATE [Patient] SET FirstName = @FirstName, LastName = @LastName, Avatar = @Avatar, ParentGuardianId = @ParentGuardianId, TracjectId = @TracjectId, DocterId = @DocterId WHERE Id = @Id", patient);
+                await sqlConnection.ExecuteAsync("UPDATE [Patient] SET FirstName = @FirstName, LastName = @LastName, Avatar = @Avatar, ParentGuardianId = @ParentGuardianId, TrajectId = @TrajectId, DoctorId = @DoctorId WHERE Id = @Id", patient);
             }
         }
 
