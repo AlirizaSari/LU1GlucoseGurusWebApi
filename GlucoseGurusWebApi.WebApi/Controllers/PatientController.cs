@@ -90,6 +90,10 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (doctor == null)
                 return NotFound($"Doctor does not exist.");
 
+            newPatient.ParentGuardianId = parentGuardianId;
+            newPatient.TrajectId = traject.Id;
+            newPatient.DoctorId = doctor.Id;
+
             var patient = await _patientRepository.InsertAsync(newPatient);
             return CreatedAtRoute("readPatient", new { patientId = patient.Id }, patient);
         }
