@@ -37,18 +37,19 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
         }
 
         [HttpGet("{trajectId}/{careMomentId}", Name = "readTrajectCareMoment")]
-        public ActionResult<TrajectCareMoment> Get(Guid trajectId, Guid careMomentId)
+        public async Task<ActionResult<TrajectCareMoment>> Get(Guid trajectId, Guid careMomentId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
                 return Unauthorized();
 
-            var trajectCareMoment = _trajectCareMomentRepository.ReadAsync(trajectId, careMomentId);
+            var trajectCareMoment = await _trajectCareMomentRepository.ReadAsync(trajectId, careMomentId);
             if (trajectCareMoment == null)
                 return NotFound($"TrajectCareMoment does not exist.");
 
             return Ok(trajectCareMoment);
         }
+
 
         [HttpPost(Name = "createTrajectCareMoment")]
         public async Task<ActionResult<TrajectCareMoment>> Add(TrajectCareMoment newTrajectCareMoment)
