@@ -7,7 +7,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("parentGuardians")]
+    [Route("patients")]
     public class PatientController : ControllerBase
     {
         private readonly IPatientRepository _patientRepository;
