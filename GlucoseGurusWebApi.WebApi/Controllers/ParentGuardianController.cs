@@ -55,12 +55,12 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             if (userId == null)
                 return Unauthorized();
+            newParentGuardian.UserId = userId;
 
             var userParentGuardians = await _parentGuardianRepository.ReadAllByUserIdAsync(userId);
             if (userParentGuardians.Count() >= ParentGuardian.MaxNumberOfParentGuardians)
                 return BadRequest($"Maximum number of parent guardians reached.");
 
-            newParentGuardian.UserId = userId;
 
             var createdParentGuardian = await _parentGuardianRepository.InsertAsync(newParentGuardian);
             return CreatedAtRoute("readParentGuardian", new { parentGuardianId = createdParentGuardian.Id }, createdParentGuardian);
