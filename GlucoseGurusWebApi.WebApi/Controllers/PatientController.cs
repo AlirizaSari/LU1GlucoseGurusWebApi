@@ -7,7 +7,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("parentGuardians")]
+    [Route("patients")]
     public class PatientController : ControllerBase
     {
         private readonly IPatientRepository _patientRepository;
@@ -78,9 +78,9 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var parentGuardian = await _parentGuardianRepository.ReadAsync(parentGuardianId);
-            if (parentGuardian == null || parentGuardian.UserId != userId)
-                return NotFound($"ParentGuardian does not belong to the current user.");
+            //var parentGuardian = await _parentGuardianRepository.ReadAsync(parentGuardianId);
+            //if (parentGuardian == null || parentGuardian.UserId != userId)
+            //    return NotFound($"ParentGuardian does not belong to the current user.");
 
             var traject = await _trajectRepository.ReadAsync(newPatient.TrajectId);
             if (traject == null)
@@ -93,6 +93,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             newPatient.ParentGuardianId = parentGuardianId;
             newPatient.TrajectId = traject.Id;
             newPatient.DoctorId = doctor.Id;
+
 
             var patient = await _patientRepository.InsertAsync(newPatient);
             return CreatedAtRoute("readPatient", new { patientId = patient.Id }, patient);

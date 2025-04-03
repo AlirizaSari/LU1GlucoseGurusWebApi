@@ -68,6 +68,7 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
 
             newTrajectCareMoment.TrajectId = traject.Id;
             newTrajectCareMoment.CareMomentId = careMoment.Id;
+            newTrajectCareMoment.IsCompleted = false;
 
             var trajectCareMoment = await _trajectCareMomentRepository.InsertAsync(newTrajectCareMoment);
             return CreatedAtRoute("readTrajectCareMoment", new { trajectId = trajectCareMoment.TrajectId, careMomentId = trajectCareMoment.CareMomentId }, trajectCareMoment);
