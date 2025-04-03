@@ -94,7 +94,6 @@ namespace GlucoseGurusWebApi.WebApi.Controllers
             newPatient.TrajectId = traject.Id;
             newPatient.DoctorId = doctor.Id;
 
-            //newPatient.Id = Guid.NewGuid();
 
             var patient = await _patientRepository.InsertAsync(newPatient);
             return CreatedAtRoute("readPatient", new { patientId = patient.Id }, patient);
